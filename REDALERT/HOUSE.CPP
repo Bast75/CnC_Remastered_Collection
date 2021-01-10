@@ -6662,10 +6662,10 @@ int HouseClass::AI_Unit(void)
 	if (BQuantity[STRUCT_WEAP] == 2) { WarFactorySlowdown = Rule.AISlowDown2Warfactory; }
 	
 	if ((BQuantity[STRUCT_WEAP] > 2) && NewUnitsEnabled && Rule.AIAftermathfastbuild == 0) {
-		BuildingSlowdown = (BQuantity[STRUCT_WEAP] * Rule.AISlowDownAddWarfactoryOFF);
+		WarFactorySlowdown = (BQuantity[STRUCT_WEAP] * Rule.AISlowDownAddWarfactoryOFF);
 	}
 		if (((BQuantity[STRUCT_WEAP] > 2) && NewUnitsEnabled && Rule.AIAftermathfastbuild == 1) || ((BQuantity[STRUCT_WEAP] > 2) && Rule.AIAftermathfastbuild == 0 || 1)) {
-			BuildingSlowdown = (BQuantity[STRUCT_WEAP] * Rule.AISlowDownAddWarfactoryON);
+			WarFactorySlowdown = (BQuantity[STRUCT_WEAP] * Rule.AISlowDownAddWarfactoryON);
 		}
 
 	//AI Max units
@@ -6836,10 +6836,10 @@ int HouseClass::AI_Vessel(void)
 	if (BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] == 2) { NavalSlowdown = Rule.AISlowDown2Warfactory; }
 	
 	if ((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] > 2) && NewUnitsEnabled && Rule.AIAftermathfastbuild == 0) {
-		BuildingSlowdown = ((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN]) * Rule.AISlowDownAddWarfactoryOFF);
+		NavalSlowdown = ((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN]) * Rule.AISlowDownAddWarfactoryOFF);
 	}
 		if (((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] > 2) && NewUnitsEnabled && Rule.AIAftermathfastbuild == 1) || ((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] > 2) && Rule.AIAftermathfastbuild == 0 || 1)) {
-			BuildingSlowdown = ((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN]) * Rule.AISlowDownAddWarfactoryON);
+			NavalSlowdown = ((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN]) * Rule.AISlowDownAddWarfactoryON);
 		}
 
 
