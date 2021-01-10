@@ -542,12 +542,15 @@ bool RulesClass::General(CCINIClass & ini)
 		AIHarvesterMultiplyer = ini.Get_Int(MOREQOL, "AIHarvesterMultiplyer", 1.2);
 		AIBuildingsMultiplier = ini.Get_Int(MOREQOL, "AIBuildingsMultiplier", 3);
 		AIBuildingsMinimal = ini.Get_Int(MOREQOL, "AIBuildingsMinimal", 20);
+		AIAftermathfastbuild = ini.Get_Bool(MOREQOL, "AIAftermathfastbuild", true);
 		AISlowDown1ConstructionYard = ini.Get_Int(MOREQOL, "AISlowDown1ConstructionYard", 1);
-		AISlowDown2ConstructionYard = ini.Get_Int(MOREQOL, "AISlowDown2ConstructionYard", 10);
-		AISlowDown3PlusConstructionYard = ini.Get_Int(MOREQOL, "AISlowDown3PlusConstructionYard", 20);
+		AISlowDown2ConstructionYard = ini.Get_Int(MOREQOL, "AISlowDown2ConstructionYard", 15);
+		AISlowDownAddConstructionYardOFF = ini.Get_Int(MOREQOL, "AISlowDownAddConstructionYardOFF", 10);
+		AISlowDownAddConstructionYardON = ini.Get_Int(MOREQOL, "AISlowDownAddConstructionYardON", 3);
 		AISlowDown1Warfactory = ini.Get_Int(MOREQOL, "AISlowDown1Warfactory", 1);
-		AISlowDown2Warfactory = ini.Get_Int(MOREQOL, "AISlowDown2Warfactory", 10);
-		AISlowDown3PlusWarfactory = ini.Get_Int(MOREQOL, "AISlowDown3PlusWarfactory", 20);
+		AISlowDown2Warfactory = ini.Get_Int(MOREQOL, "AISlowDown2Warfactory", 15);
+		AISlowDownAddWarfactoryOFF = ini.Get_Int(MOREQOL, "AISlowDownAddWarfactoryOFF", 10);
+		AISlowDownAddWarfactoryON = ini.Get_Int(MOREQOL, "AISlowDownAddWarfactoryON", 3);
 		AIMaxEngineers = ini.Get_Int(MOREQOL, "AIMaxEngineers", 15);
 
 		AllowTechStealing = ini.Get_Bool(MOREQOL, "AllowTechStealing", true);

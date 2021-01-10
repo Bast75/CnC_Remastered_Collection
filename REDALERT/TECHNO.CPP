@@ -6545,7 +6545,8 @@ int TechnoTypeClass::Time_To_Build(HousesType house) const
 #ifdef FIXIT_CSII	//	checked - ajw 9/28/98
 		// Hack: allow the multiple-factory bonus, but only up to two factories if
 		//			this is an AM<->AM game.
-		if (NewUnitsEnabled) {
+		// Enable fast build with Aftermath units
+		if (NewUnitsEnabled && Rule.AIAftermathfastbuild == 0) {
 			time /= min(divisor, 2);
 		}
 		else {

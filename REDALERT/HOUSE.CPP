@@ -6247,10 +6247,12 @@ int HouseClass::AI_Building(void)
 			AIDetectedNavalWar = true;
 			Rule.AISlowDown1ConstructionYard = 1;
 			Rule.AISlowDown2ConstructionYard = 1;
-			Rule.AISlowDown3PlusConstructionYard = 1;
+			Rule.AISlowDownAddConstructionYardOFF = 1;
+			Rule.AISlowDownAddConstructionYardON = 1;
 			Rule.AISlowDown1Warfactory = 1;
 			Rule.AISlowDown2Warfactory = 1;
-			Rule.AISlowDown3PlusWarfactory = 1;
+			Rule.AISlowDownAddWarfactoryOFF = 1;
+			Rule.AISlowDownAddWarfactoryON = 1;
 		}
 
 		//Power
@@ -6589,9 +6591,16 @@ int HouseClass::AI_Building(void)
 			}
 		}
 
+		// Slowdown algorythm for bases building
 		if (BQuantity[STRUCT_CONST] < 2) { BuildingSlowdown = Rule.AISlowDown1ConstructionYard; }
-		if (BQuantity[STRUCT_CONST] == 2) { BuildingSlowdown = Rule.AISlowDown1ConstructionYard; }
-		if (BQuantity[STRUCT_CONST] > 2) { BuildingSlowdown = Rule.AISlowDown3PlusConstructionYard; }
+		if (BQuantity[STRUCT_CONST] == 2) { BuildingSlowdown = Rule.AISlowDown2ConstructionYard; }
+		
+		if ((BQuantity[STRUCT_CONST] > 2) && NewUnitsEnabled && Rule.AIAftermathfastbuild == 0) {
+			BuildingSlowdown = (BQuantity[STRUCT_CONST] * Rule.AISlowDownAddConstructionYardOFF);
+		}
+			if (((BQuantity[STRUCT_CONST] > 2) && NewUnitsEnabled && Rule.AIAftermathfastbuild == 1) || ((BQuantity[STRUCT_CONST] > 2) && Rule.AIAftermathfastbuild == 0 || 1)) {
+				BuildingSlowdown = (BQuantity[STRUCT_CONST] * Rule.AISlowDownAddConstructionYardON);
+			}
 
 		if (!IsHuman && (int)HumanBuildingCount > 0 && (int)CurBuildings > Rule.AIBuildingsMinimal) {
 			// AI goes over minimal allowed, now check if not to much:
@@ -6647,10 +6656,17 @@ int HouseClass::AI_Unit(void)
 	if (BuildUnit != UNIT_NONE) return(TICKS_PER_SECOND);
 	if (CurUnits >= Control.MaxUnit && !IsHuman) return(TICKS_PER_SECOND);
 
+	// Slowdown algorythm for units building
 	int WarFactorySlowdown = 1;
 	if (BQuantity[STRUCT_WEAP] < 2) { WarFactorySlowdown = Rule.AISlowDown1Warfactory; }
 	if (BQuantity[STRUCT_WEAP] == 2) { WarFactorySlowdown = Rule.AISlowDown2Warfactory; }
-	if (BQuantity[STRUCT_WEAP] > 2) { WarFactorySlowdown = Rule.AISlowDown3PlusWarfactory; }
+	
+	if ((BQuantity[STRUCT_WEAP] > 2) && NewUnitsEnabled && Rule.AIAftermathfastbuild == 0) {
+		BuildingSlowdown = (BQuantity[STRUCT_WEAP] * Rule.AISlowDownAddWarfactoryOFF);
+	}
+		if (((BQuantity[STRUCT_WEAP] > 2) && NewUnitsEnabled && Rule.AIAftermathfastbuild == 1) || ((BQuantity[STRUCT_WEAP] > 2) && Rule.AIAftermathfastbuild == 0 || 1)) {
+			BuildingSlowdown = (BQuantity[STRUCT_WEAP] * Rule.AISlowDownAddWarfactoryON);
+		}
 
 	//AI Max units
 	if (!IsHuman && (int)CurUnits > AIMaxTanksNr) {
@@ -6814,10 +6830,17 @@ int HouseClass::AI_Vessel(void)
 {
 	assert(Houses.ID(this) == ID);
 
+	// Slowdown algorythm for naval building
 	int NavalSlowdown = 1;
 	if (BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] < 2) { NavalSlowdown = Rule.AISlowDown1Warfactory; }
 	if (BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] == 2) { NavalSlowdown = Rule.AISlowDown2Warfactory; }
-	if (BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] > 2) { NavalSlowdown = Rule.AISlowDown3PlusWarfactory; }
+	
+	if ((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] > 2) && NewUnitsEnabled && Rule.AIAftermathfastbuild == 0) {
+		BuildingSlowdown = ((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN]) * Rule.AISlowDownAddWarfactoryOFF);
+	}
+		if (((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] > 2) && NewUnitsEnabled && Rule.AIAftermathfastbuild == 1) || ((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] > 2) && Rule.AIAftermathfastbuild == 0 || 1)) {
+			BuildingSlowdown = ((BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN]) * Rule.AISlowDownAddWarfactoryON);
+		}
 
 
 	if (BuildVessel != VESSEL_NONE) return(TICKS_PER_SECOND * NavalSlowdown);
@@ -6831,7 +6854,7 @@ int HouseClass::AI_Vessel(void)
 		return(TICKS_PER_SECOND * NavalSlowdown);
 	}
 
-	//No more Naval War? Don't build to much of it
+	//No more Naval War? Don't build too much of it
 	if (!AIDetectedNavalWar && !IsHuman) {
 		if (Percent_Chance(90)) {
 			return(TICKS_PER_SECOND * NavalSlowdown);
