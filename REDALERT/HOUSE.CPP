@@ -6657,7 +6657,6 @@ int HouseClass::AI_Unit(void)
 	if (CurUnits >= Control.MaxUnit && !IsHuman) return(TICKS_PER_SECOND);
 
 	// Slowdown algorythm for units building
-	int WarFactorySlowdown = 1;
 	if (BQuantity[STRUCT_WEAP] < 2) { WarFactorySlowdown = Rule.AISlowDown1Warfactory; }
 	if (BQuantity[STRUCT_WEAP] == 2) { WarFactorySlowdown = Rule.AISlowDown2Warfactory; }
 	
@@ -6831,7 +6830,6 @@ int HouseClass::AI_Vessel(void)
 	assert(Houses.ID(this) == ID);
 
 	// Slowdown algorythm for naval building
-	int NavalSlowdown = 1;
 	if (BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] < 2) { NavalSlowdown = Rule.AISlowDown1Warfactory; }
 	if (BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN] == 2) { NavalSlowdown = Rule.AISlowDown2Warfactory; }
 	

@@ -452,6 +452,8 @@ class HouseClass {
 		int AIMaxAirNr = 20;
 		int AIAttackIntervalLoop = 0;
 		int BuildingSlowdown = 1;
+		int WarFactorySlowdown = 1;
+		int NavalSlowdown = 1;
 		//bool AIAttackMode = true;
 		int HasStolenTech = 0;
 		void SetStolenTech(void);
