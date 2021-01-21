@@ -82,14 +82,6 @@ class RulesClass {
 		int AIAttackInterval = 4;
 		int AISpeedRush = 0;
 		bool AIAftermathfastbuild = true;
-		int AISlowDown1ConstructionYard = 1;
-		int AISlowDown2ConstructionYard = 15;
-		int AISlowDownAddConstructionYardOFF = 10;
-		int AISlowDownAddConstructionYardON = 3;
-		int AISlowDown1Warfactory = 1;
-		int AISlowDown2Warfactory = 15;
-		int AISlowDownAddWarfactoryOFF = 10;
-		int AISlowDownAddWarfactoryON = 3;
 		bool AIAllowDynamicBaseGrow = true;
 		int AIAttackMinimalDefence = 6;
 		bool AIAllowBaseGrowByDeployedMCV = true;
@@ -116,7 +108,9 @@ class RulesClass {
 		int AIPowerPlusMinimal = 50;
 		int AIPowerPlusExtra = 500;
 		int AIPowerPlusSellValue = 1000;
-		int AIRefineryLimitOverwrite = 10; // Newer build more Refs as this
+		int AIRefineryLimitOverwrite = 10; // Never build more Refs as this
+		int AIWarFactoryLimitOverwriteON = 4;
+		int AIWarFactoryLimitOverwriteOFF = 2;
 		//Basic
 		int AIDogHouseMinimalBasic = 2;
 		int AIBarracksMinimalBasic = 2;
