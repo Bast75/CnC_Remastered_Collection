@@ -6145,7 +6145,7 @@ int HouseClass::AI_Building(void)
 				if (enemy->BQuantity[STRUCT_BARRACKS] + enemy->BQuantity[STRUCT_TENT] > AIBarracksMinimal) {
 					AIBarracksMinimal = enemy->BQuantity[STRUCT_BARRACKS] + enemy->BQuantity[STRUCT_TENT];
 				}
-				if (enemy->BQuantity[STRUCT_WEAP] > AIWarFactoryMinimal && enemy->BQuantity[STRUCT_WEAP] < AIWarFactoryLimitOverwrite) {
+				if (enemy->BQuantity[STRUCT_WEAP] > AIWarFactoryMinimal && BQuantity[STRUCT_WEAP] < AIWarFactoryLimitOverwrite) {
 					AIWarFactoryMinimal = enemy->BQuantity[STRUCT_WEAP];
 				}
 				if (enemy->BQuantity[STRUCT_SHIP_YARD] + enemy->BQuantity[STRUCT_SUB_PEN] > AINavalMinimal) {
