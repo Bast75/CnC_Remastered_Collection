@@ -6145,7 +6145,7 @@ int HouseClass::AI_Building(void)
 				if (enemy->BQuantity[STRUCT_BARRACKS] + enemy->BQuantity[STRUCT_TENT] > AIBarracksMinimal) {
 					AIBarracksMinimal = enemy->BQuantity[STRUCT_BARRACKS] + enemy->BQuantity[STRUCT_TENT];
 				}
-				if (enemy->BQuantity[STRUCT_WEAP] > AIWarFactoryMinimal && BQuantity[STRUCT_WEAP] < AIWarFactoryLimitOverwrite) {
+				if (enemy->BQuantity[STRUCT_WEAP] > AIWarFactoryMinimal) {
 					AIWarFactoryMinimal = enemy->BQuantity[STRUCT_WEAP];
 				}
 				if (enemy->BQuantity[STRUCT_SHIP_YARD] + enemy->BQuantity[STRUCT_SUB_PEN] > AINavalMinimal) {
@@ -6412,6 +6412,17 @@ int HouseClass::AI_Building(void)
 						prio = 4;
 					}
 					*choiceptr = BuildChoiceClass(BQuantity[STRUCT_WEAP] < prio ? URGENCY_HIGH : URGENCY_MEDIUM, b->Type);
+				}
+			}
+		}
+
+		//Construction Yard
+		if ((MCVsProduced + (int)BQuantity[STRUCT_CONST]) < Rule.AIMaxConYardsAndMCVs) {
+			b = &BuildingTypeClass::As_Reference(STRUCT_CONST);
+			if (Can_Build(b, ActLike) && b->Cost_Of() < money) {
+				choiceptr = BuildChoice.Alloc();
+				if (choiceptr != NULL) {
+					*choiceptr = BuildChoiceClass(BQuantity[STRUCT_CONST] < 2 ? URGENCY_HIGH : URGENCY_MEDIUM, b->Type);
 				}
 			}
 		}
