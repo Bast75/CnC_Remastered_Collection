@@ -6416,17 +6416,6 @@ int HouseClass::AI_Building(void)
 			}
 		}
 
-		//Construction Yard
-		if ((MCVsProduced + (int)BQuantity[STRUCT_CONST]) < Rule.AIMaxConYardsAndMCVs) {
-			b = &BuildingTypeClass::As_Reference(STRUCT_CONST);
-			if (Can_Build(b, ActLike) && b->Cost_Of() < money) {
-				choiceptr = BuildChoice.Alloc();
-				if (choiceptr != NULL) {
-					*choiceptr = BuildChoiceClass(BQuantity[STRUCT_CONST] < 2 ? URGENCY_HIGH : URGENCY_MEDIUM, b->Type);
-				}
-			}
-		}
-
 		//naval allies
 		if (BQuantity[STRUCT_SHIP_YARD] < AINavalMinimal) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_SHIP_YARD);
