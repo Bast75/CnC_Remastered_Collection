@@ -6416,6 +6416,17 @@ int HouseClass::AI_Building(void)
 			}
 		}
 
+		//Allow AI to build a second Construction Yard if its too long to make a MCV(little hack to help AI at the start)
+		if ((MCVsProduced + (int)BQuantity[STRUCT_CONST]) == 1) {
+			b = &BuildingTypeClass::As_Reference(STRUCT_CONST);
+			if (Can_Build(b, ActLike) && (b->Cost_Of() < money || hasincome)) {
+				choiceptr = BuildChoice.Alloc();
+				if (choiceptr != NULL) {
+					*choiceptr = BuildChoiceClass(URGENCY_HIGH, b->Type);
+				}
+			}
+		}
+
 		//naval allies
 		if (BQuantity[STRUCT_SHIP_YARD] < AINavalMinimal) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_SHIP_YARD);
