@@ -6408,7 +6408,7 @@ int HouseClass::AI_Building(void)
 					if (BQuantity[STRUCT_REFINERY] > 2) {
 						prio = 2;
 					}
-					if (BQuantity[STRUCT_ADVANCED_TECH] > 0 || BQuantity[STRUCT_SOVIET_TECH] > 0) {
+					if (BQuantity[STRUCT_CONST] > 1) {
 						prio = 4;
 					}
 					*choiceptr = BuildChoiceClass(BQuantity[STRUCT_WEAP] < prio ? URGENCY_HIGH : URGENCY_MEDIUM, b->Type);
@@ -6417,9 +6417,9 @@ int HouseClass::AI_Building(void)
 		}
 
 		//Allow AI to build a second Construction Yard if its too long to make a MCV(little hack to help AI at the start)
-		if ((MCVsProduced + (int)BQuantity[STRUCT_CONST]) == 1) {
+		if ((MCVsProduced + (int)BQuantity[STRUCT_CONST]) == 1 && BQuantity[STRUCT_REPAIR] > 0) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_CONST);
-			if (Can_Build(b, ActLike) && (b->Cost_Of() < money || hasincome)) {
+			if (Can_Build(b, ActLike) && (b->Cost_Of() < money)) {
 				choiceptr = BuildChoice.Alloc();
 				if (choiceptr != NULL) {
 					*choiceptr = BuildChoiceClass(URGENCY_HIGH, b->Type);
