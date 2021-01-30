@@ -1,6 +1,23 @@
 <?xml version="1.0"?>
 <GameConstants>
 	<GameConstantsClass>
+		
+		<CNCDisableLegacyGraphicsOption network="client" overwrite="true"> false </CNCDisableLegacyGraphicsOption>
+	
+		<CNCStartingCredits>
+			<Entry> 0 </Entry>
+			<Entry> 0 </Entry>
+			<Entry> 504624 </Entry>
+			<Entry> 0 </Entry>
+			<Entry> 900847 </Entry>
+			<Entry> 32 </Entry>
+			<Entry> 542036 </Entry>
+			<Entry> 280927 </Entry>
+			<Entry> 868679 </Entry>
+			<Entry> 21343 </Entry>
+			<Entry> 1000517 </Entry>
+		</CNCStartingCredits>
+			
 		<CNCZoomFactors network="client" overwrite="true">
 			<ZoomFactor>0.05</ZoomFactor>
 			<ZoomFactor>0.15</ZoomFactor>

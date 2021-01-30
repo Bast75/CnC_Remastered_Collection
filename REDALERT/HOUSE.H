@@ -445,13 +445,13 @@ class HouseClass {
 		//bool AIAttackModeDoClosest = false;
 		//int AINrOfMCVsProduced = 0;
 		int AIMaxBuildings = 75;
+		int AIWarFactoryLimitOverwrite = 1;
 		int MCVsProduced = 0;
 		int AIMaxTanksNr = 50;
 		int AIMaxNavalNr = 50;
 		int AIMaxInfantryNr = 50;
 		int AIMaxAirNr = 20;
 		int AIAttackIntervalLoop = 0;
-		int BuildingSlowdown = 1;
 		//bool AIAttackMode = true;
 		int HasStolenTech = 0;
 		void SetStolenTech(void);

@@ -542,12 +542,7 @@ bool RulesClass::General(CCINIClass & ini)
 		AIHarvesterMultiplyer = ini.Get_Int(MOREQOL, "AIHarvesterMultiplyer", 1.2);
 		AIBuildingsMultiplier = ini.Get_Int(MOREQOL, "AIBuildingsMultiplier", 3);
 		AIBuildingsMinimal = ini.Get_Int(MOREQOL, "AIBuildingsMinimal", 20);
-		AISlowDown1ConstructionYard = ini.Get_Int(MOREQOL, "AISlowDown1ConstructionYard", 1);
-		AISlowDown2ConstructionYard = ini.Get_Int(MOREQOL, "AISlowDown2ConstructionYard", 10);
-		AISlowDown3PlusConstructionYard = ini.Get_Int(MOREQOL, "AISlowDown3PlusConstructionYard", 20);
-		AISlowDown1Warfactory = ini.Get_Int(MOREQOL, "AISlowDown1Warfactory", 1);
-		AISlowDown2Warfactory = ini.Get_Int(MOREQOL, "AISlowDown2Warfactory", 10);
-		AISlowDown3PlusWarfactory = ini.Get_Int(MOREQOL, "AISlowDown3PlusWarfactory", 20);
+		AIAftermathfastbuild = ini.Get_Bool(MOREQOL, "AIAftermathfastbuild", true);
 		AIMaxEngineers = ini.Get_Int(MOREQOL, "AIMaxEngineers", 15);
 
 		AllowTechStealing = ini.Get_Bool(MOREQOL, "AllowTechStealing", true);
@@ -621,6 +616,8 @@ bool RulesClass::General(CCINIClass & ini)
 		AIMaxAirNaval = ini.Get_Int(MOREQOL, "AIMaxAirNaval", 75);
 		AIGroundUnitSlowDown = ini.Get_Int(MOREQOL, "AIGroundUnitSlowDown", 98);
 		AIRefineryLimitOverwrite = ini.Get_Int(MOREQOL, "AIRefineryLimitOverwrite", 10);
+		AIWarFactoryLimitOverwriteON = ini.Get_Int(MOREQOL, "AIWarFactoryLimitOverwriteON", 4);
+		AIWarFactoryLimitOverwriteOFF = ini.Get_Int(MOREQOL, "AIWarFactoryLimitOverwriteOFF", 2);
 
 		AISpeedRush = ini.Get_Int(MOREQOL, "AISpeedRush", 0);
 		AIDogHouseSpeed = ini.Get_Int(MOREQOL, "AIDogHouseSpeed", 1);
