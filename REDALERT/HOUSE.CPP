@@ -6236,7 +6236,7 @@ int HouseClass::AI_Building(void)
 			AIDogKennelMinimal = Rule.AIDogHouseSpeed;
 			AIBarracksMinimal = Rule.AIBarracksSpeed;
 			AIWarFactoryLimitOverwrite = Rule.AIWarFactorySpeed;
-			AINavalMinimal = Rule.AINavalSpeed;
+			AIWarFactoryLimitOverwrite = Rule.AINavalSpeed;
 			AIHelipadMinimal = Rule.AIHelipadSpeed;
 			AIAirDefenceMinimal = Rule.AIAirDefenceSpeed;
 			AIFlameTurretMinimal = Rule.AIFlameTurretSpeed;
@@ -6431,7 +6431,7 @@ int HouseClass::AI_Building(void)
 		}
 
 		//naval allies
-		if (BQuantity[STRUCT_SHIP_YARD] < AINavalMinimal) {
+		if (BQuantity[STRUCT_SHIP_YARD] < AINavalMinimal && BQuantity[STRUCT_SHIP_YARD] < AIWarFactoryLimitOverwrite) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_SHIP_YARD);
 			if (Can_Build(b, ActLike) && b->Cost_Of() < money) {
 				choiceptr = BuildChoice.Alloc();
@@ -6449,7 +6449,7 @@ int HouseClass::AI_Building(void)
 		}
 
 		//naval soviet
-		if (BQuantity[STRUCT_SUB_PEN] < AINavalMinimal) {
+		if (BQuantity[STRUCT_SUB_PEN] < AINavalMinimal && BQuantity[STRUCT_SUB_PEN] < AIWarFactoryLimitOverwrite) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_SUB_PEN);
 			if (Can_Build(b, ActLike) && b->Cost_Of() < money) {
 				choiceptr = BuildChoice.Alloc();
