@@ -6390,7 +6390,7 @@ int HouseClass::AI_Building(void)
 		//tesla
 		if (BQuantity[STRUCT_TESLA] < AIGunTeslaMinimal) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_TESLA);
-			if (Can_Build(b, ActLike) && b->Cost_Of() < money) {
+			if (Can_Build(b, ActLike) && b->Cost_Of() < money && Power_Fraction() >= 1) {
 				choiceptr = BuildChoice.Alloc();
 				if (choiceptr != NULL) {
 					*choiceptr = BuildChoiceClass(BQuantity[STRUCT_TESLA] < 3 ? URGENCY_HIGH : URGENCY_MEDIUM, b->Type);
@@ -6467,7 +6467,7 @@ int HouseClass::AI_Building(void)
 		//radar
 		if (BQuantity[STRUCT_RADAR] < 1) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_RADAR);
-			if (Can_Build(b, ActLike) && (b->Cost_Of() < money || hasincome)) {
+			if (Can_Build(b, ActLike) && (b->Cost_Of() < money || hasincome) && Power_Fraction() >= 1) {
 				choiceptr = BuildChoice.Alloc();
 				if (choiceptr != NULL) {
 					*choiceptr = BuildChoiceClass(URGENCY_HIGH, b->Type);
