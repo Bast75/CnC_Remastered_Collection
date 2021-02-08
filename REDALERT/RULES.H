@@ -82,6 +82,7 @@ class RulesClass {
 		int AIAttackInterval = 4;
 		int AISpeedRush = 0;
 		bool AIAftermathfastbuild = true;
+		bool AINoShroud = false;
 		bool AIAllowDynamicBaseGrow = true;
 		int AIAttackMinimalDefence = 6;
 		bool AIAllowBaseGrowByDeployedMCV = true;
