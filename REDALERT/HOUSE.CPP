@@ -6429,7 +6429,7 @@ int HouseClass::AI_Building(void)
 				}
 			}
 		}
-
+	
 		//naval allies
 		if (BQuantity[STRUCT_SHIP_YARD] < AINavalMinimal && BQuantity[STRUCT_SHIP_YARD] < AIWarFactoryLimitOverwrite) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_SHIP_YARD);
@@ -6662,10 +6662,9 @@ int HouseClass::AI_Unit(void)
 	}
 
 	//Make MCV by Bast75
-	if (!IsHuman && !IsTiberiumShort && BQuantity[STRUCT_REPAIR] > 0 && BQuantity[STRUCT_WEAP] > 0 && (MCVsProduced + (int)BQuantity[STRUCT_CONST]) < Rule.AIMaxConYardsAndMCVs) {
+	if (!IsHuman && !IsTiberiumShort && (UQuantity[UNIT_MCV] + BQuantity[STRUCT_CONST]) < Rule.AIMaxConYardsAndMCVs) {
 		if (UnitTypeClass::As_Reference(UNIT_MCV).Level <= (unsigned)Control.TechLevel) {
-			if (MCVsProduced == 0 || Percent_Chance(10)) {
-				MCVsProduced++;
+			if (Percent_Chance(10)) {
 				BuildUnit = UNIT_MCV;
 				return(TICKS_PER_SECOND);
 			}
@@ -6771,7 +6770,7 @@ int HouseClass::AI_Unit(void)
 		UnitType index;
 		for (index = UNIT_FIRST; index < UNIT_COUNT; index++) {
 			UnitTypeClass const * utype = &UnitTypeClass::As_Reference(index);
-			if (Can_Build(utype, ActLike) && utype->Type != UNIT_HARVESTER && utype->Type != UNIT_MINELAYER) { // && utype->Type != UNIT_MAD
+			if (Can_Build(utype, ActLike) && utype->Type != UNIT_HARVESTER && utype->Type != UNIT_MINELAYER && utype->Type != UNIT_MCV) { // && utype->Type != UNIT_MAD
 				if (utype->PrimaryWeapon != NULL) {
 					counter[index] = 20;
 				}
@@ -6790,7 +6789,7 @@ int HouseClass::AI_Unit(void)
 			}
 			total += counter[index];
 		}
-
+		
 		if (total > 0) {
 			int choice = Random_Pick(0, total - 1);
 			for (index = UNIT_FIRST; index < UNIT_COUNT; index++) {
