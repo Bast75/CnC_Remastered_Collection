@@ -445,7 +445,9 @@ class HouseClass {
 		//bool AIAttackModeDoClosest = false;
 		//int AINrOfMCVsProduced = 0;
 		int AIMaxBuildings = 75;
-		int AIWarFactoryLimitOverwrite = 1;
+		int AIMaxConYardsAndMCVs = 1;
+		int AIWarFactoryLimit = 1;
+		int AIVesselCarrierLimit = 1;
 		int MCVsProduced = 0;
 		int AIMaxTanksNr = 50;
 		int AIMaxNavalNr = 50;

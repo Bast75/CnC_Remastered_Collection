@@ -5986,12 +5986,16 @@ int HouseClass::AI_Building(void)
 
 	if (BuildStructure != STRUCT_NONE) return(TICKS_PER_SECOND);
 
-	// Set maximum of War Factory according to fast build On/Off - Mini Franki
+	// Set maximum of War Factory/Yard/Vessel Carrier according to fast build On/Off - Mini Franki
 	if ((NewUnitsEnabled && Rule.AIAftermathfastbuild == 1) || !NewUnitsEnabled) {
-		AIWarFactoryLimitOverwrite = Rule.AIWarFactoryLimitOverwriteON;
+		AIWarFactoryLimit = Rule.AIWarFactoryLimitON;
+		AIMaxConYardsAndMCVs = Rule.AIMaxConYardsAndMCVsON;
+		AIVesselCarrierLimit = Rule.AIVesselCarrierLimitON;
 	}
 	if (NewUnitsEnabled && (Rule.AIAftermathfastbuild == 0)) {
-		AIWarFactoryLimitOverwrite = Rule.AIWarFactoryLimitOverwriteOFF;
+		AIWarFactoryLimit = Rule.AIWarFactoryLimitOFF;
+		AIMaxConYardsAndMCVs = Rule.AIMaxConYardsAndMCVsOFF;
+		AIVesselCarrierLimit = Rule.AIVesselCarrierLimitOFF;
 	}
 
 	if (Session.Type == GAME_NORMAL && Base.House == Class->House) {
@@ -6235,8 +6239,8 @@ int HouseClass::AI_Building(void)
 		if (Rule.AISpeedRush == 1) {
 			AIDogKennelMinimal = Rule.AIDogHouseSpeed;
 			AIBarracksMinimal = Rule.AIBarracksSpeed;
-			AIWarFactoryLimitOverwrite = Rule.AIWarFactorySpeed;
-			AIWarFactoryLimitOverwrite = Rule.AINavalSpeed;
+			AIWarFactoryLimit = Rule.AIWarFactorySpeed;
+			AIVesselCarrierLimit = Rule.AINavalSpeed;
 			AIHelipadMinimal = Rule.AIHelipadSpeed;
 			AIAirDefenceMinimal = Rule.AIAirDefenceSpeed;
 			AIFlameTurretMinimal = Rule.AIFlameTurretSpeed;
@@ -6245,7 +6249,7 @@ int HouseClass::AI_Building(void)
 			AINukeMinimal = Rule.AINukeSpeed;
 			AIRepairBayMinimal = Rule.AIRepairBaySpeed;
 			AIMaxBuildings = Rule.AIMaxBuildingsSpeed;
-			Rule.AIMaxConYardsAndMCVs = 1;
+			AIMaxConYardsAndMCVs = 1;
 			AIMaxTanksNr = Rule.AIMaxTanksSpeed;
 			AIMaxNavalNr = Rule.AIMaxNavalSpeed;
 			AIMaxInfantryNr = Rule.AIMaxInfantrySpeed;
@@ -6399,7 +6403,7 @@ int HouseClass::AI_Building(void)
 		}
 
 		//warfactory, 1st one high prio, then build 4 defences, then nr 2 and 3 high prio. More is medium
-		if (BQuantity[STRUCT_WEAP] < AIWarFactoryMinimal && BQuantity[STRUCT_WEAP] < AIWarFactoryLimitOverwrite) {
+		if (BQuantity[STRUCT_WEAP] < AIWarFactoryMinimal && BQuantity[STRUCT_WEAP] < AIWarFactoryLimit) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_WEAP);
 			if (Can_Build(b, ActLike) && (money > b->Cost_Of() || hasincome)) {
 				choiceptr = BuildChoice.Alloc();
@@ -6431,7 +6435,7 @@ int HouseClass::AI_Building(void)
 		}
 
 		//Construction Yard
-		if ((UQuantity[UNIT_MCV] + BQuantity[STRUCT_CONST]) < Rule.AIMaxConYardsAndMCVs) {
+		if ((UQuantity[UNIT_MCV] + BQuantity[STRUCT_CONST]) < AIMaxConYardsAndMCVs) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_CONST);
 			if (Can_Build(b, ActLike) && (b->Cost_Of() < money || hasincome)) {
 				choiceptr = BuildChoice.Alloc();
@@ -6442,7 +6446,7 @@ int HouseClass::AI_Building(void)
 		}
 	
 		//naval allies
-		if (BQuantity[STRUCT_SHIP_YARD] < AINavalMinimal && BQuantity[STRUCT_SHIP_YARD] < AIWarFactoryLimitOverwrite) {
+		if (BQuantity[STRUCT_SHIP_YARD] < AINavalMinimal && BQuantity[STRUCT_SHIP_YARD] < AIVesselCarrierLimit) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_SHIP_YARD);
 			if (Can_Build(b, ActLike) && b->Cost_Of() < money) {
 				choiceptr = BuildChoice.Alloc();
@@ -6460,7 +6464,7 @@ int HouseClass::AI_Building(void)
 		}
 
 		//naval soviet
-		if (BQuantity[STRUCT_SUB_PEN] < AINavalMinimal && BQuantity[STRUCT_SUB_PEN] < AIWarFactoryLimitOverwrite) {
+		if (BQuantity[STRUCT_SUB_PEN] < AINavalMinimal && BQuantity[STRUCT_SUB_PEN] < AIVesselCarrierLimit) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_SUB_PEN);
 			if (Can_Build(b, ActLike) && b->Cost_Of() < money) {
 				choiceptr = BuildChoice.Alloc();
@@ -6673,7 +6677,7 @@ int HouseClass::AI_Unit(void)
 	}
 
 	//Make MCV by Bast75
-	if (!IsHuman && !IsTiberiumShort && BQuantity[STRUCT_REPAIR] > 0 && BQuantity[STRUCT_WEAP] > 0 && (UQuantity[UNIT_MCV] + BQuantity[STRUCT_CONST]) < Rule.AIMaxConYardsAndMCVs) {
+	if (!IsHuman && !IsTiberiumShort && BQuantity[STRUCT_REPAIR] > 0 && BQuantity[STRUCT_WEAP] > 0 && (UQuantity[UNIT_MCV] + BQuantity[STRUCT_CONST]) < AIMaxConYardsAndMCVs) {
 		if (UnitTypeClass::As_Reference(UNIT_MCV).Level <= (unsigned)Control.TechLevel) {
 			if (Percent_Chance(5)) {
 				BuildUnit = UNIT_MCV;
