@@ -6429,6 +6429,17 @@ int HouseClass::AI_Building(void)
 				}
 			}
 		}
+
+		//Construction Yard
+		if ((UQuantity[UNIT_MCV] + BQuantity[STRUCT_CONST]) < Rule.AIMaxConYardsAndMCVs) {
+			b = &BuildingTypeClass::As_Reference(STRUCT_CONST);
+			if (Can_Build(b, ActLike) && (b->Cost_Of() < money || hasincome)) {
+				choiceptr = BuildChoice.Alloc();
+				if (choiceptr != NULL) {
+					*choiceptr = BuildChoiceClass(BQuantity[STRUCT_CONST] < 2 ? URGENCY_HIGH : URGENCY_MEDIUM, b->Type);
+				}
+			}
+		}
 	
 		//naval allies
 		if (BQuantity[STRUCT_SHIP_YARD] < AINavalMinimal && BQuantity[STRUCT_SHIP_YARD] < AIWarFactoryLimitOverwrite) {
@@ -6662,9 +6673,9 @@ int HouseClass::AI_Unit(void)
 	}
 
 	//Make MCV by Bast75
-	if (!IsHuman && !IsTiberiumShort && (UQuantity[UNIT_MCV] + BQuantity[STRUCT_CONST]) < Rule.AIMaxConYardsAndMCVs) {
+	if (!IsHuman && !IsTiberiumShort && BQuantity[STRUCT_REPAIR] > 0 && BQuantity[STRUCT_WEAP] > 0 && (UQuantity[UNIT_MCV] + BQuantity[STRUCT_CONST]) < Rule.AIMaxConYardsAndMCVs) {
 		if (UnitTypeClass::As_Reference(UNIT_MCV).Level <= (unsigned)Control.TechLevel) {
-			if (Percent_Chance(10)) {
+			if (Percent_Chance(5)) {
 				BuildUnit = UNIT_MCV;
 				return(TICKS_PER_SECOND);
 			}
