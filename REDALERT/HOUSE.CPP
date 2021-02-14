@@ -6386,7 +6386,7 @@ int HouseClass::AI_Building(void)
 			if (Can_Build(b, ActLike) && b->Cost_Of() < money) {
 				choiceptr = BuildChoice.Alloc();
 				if (choiceptr != NULL) {
-					*choiceptr = BuildChoiceClass(BQuantity[STRUCT_TURRET] < 4 ? URGENCY_HIGH : URGENCY_MEDIUM, b->Type);
+					*choiceptr = BuildChoiceClass(BQuantity[STRUCT_TURRET] < 6 ? URGENCY_HIGH : URGENCY_MEDIUM, b->Type);
 				}
 			}
 		}
@@ -6446,7 +6446,7 @@ int HouseClass::AI_Building(void)
 		}
 	
 		//naval allies
-		if (BQuantity[STRUCT_SHIP_YARD] < AINavalMinimal && BQuantity[STRUCT_SHIP_YARD] < AIVesselCarrierLimit) {
+		if (BQuantity[STRUCT_SHIP_YARD] < AINavalMinimal && (BQuantity[STRUCT_SHIP_YARD] + BQuantity[STRUCT_SUB_PEN]) < AIVesselCarrierLimit) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_SHIP_YARD);
 			if (Can_Build(b, ActLike) && b->Cost_Of() < money) {
 				choiceptr = BuildChoice.Alloc();
@@ -6464,7 +6464,7 @@ int HouseClass::AI_Building(void)
 		}
 
 		//naval soviet
-		if (BQuantity[STRUCT_SUB_PEN] < AINavalMinimal && BQuantity[STRUCT_SUB_PEN] < AIVesselCarrierLimit) {
+		if (BQuantity[STRUCT_SUB_PEN] < AINavalMinimal && (BQuantity[STRUCT_SUB_PEN] + BQuantity[STRUCT_SHIP_YARD]) < AIVesselCarrierLimit) {
 			b = &BuildingTypeClass::As_Reference(STRUCT_SUB_PEN);
 			if (Can_Build(b, ActLike) && b->Cost_Of() < money) {
 				choiceptr = BuildChoice.Alloc();

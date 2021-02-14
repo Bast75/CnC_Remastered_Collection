@@ -2183,10 +2183,12 @@ bool CellClass::Goodie_Check(FootClass * object)
 
 	//No shroud On/Off - Mini Franki
 	if (Rule.AINoShroud == 1) {
-		for (CELL cell = 0; cell < MAP_CELL_TOTAL; cell++) {
-			Map.Map_Cell(cell, object->House);
+		if (object->House->IsHuman) {
+			for (CELL cell = 0; cell < MAP_CELL_TOTAL; cell++) {
+				Map.Map_Cell(cell, object->House);
+			}
+			Map.Flag_To_Redraw(true);
 		}
-		Map.Flag_To_Redraw(true);
 	}
 
 	if (object != NULL && Overlay != OVERLAY_NONE && OverlayTypeClass::As_Reference(Overlay).IsCrate) {
